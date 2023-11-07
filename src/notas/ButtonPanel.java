@@ -62,7 +62,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
         this.addMouseListener(this);
         this.setVisible(true);
         this.function = f;
-        this.add(new JLabel(text)).setFont(new Font(Font.SANS_SERIF,  Font.ITALIC, 40));
+        this.add(new JLabel("\n"+text)).setFont(new Font(Font.SANS_SERIF,  Font.ITALIC, 15));
     
     }
     
@@ -130,8 +130,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
             String selec=TextPanel.ti.getSelectedText();
             boolean primero=false;
             Element bold = new Element("b");
-            
-            html.
+
             
 
             for (Element element : doc.select("*")) {

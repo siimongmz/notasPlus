@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="github.eikek.emil.jsoup_2.12" type="repository">
+    <properties maven-id="com.github.eikek:emil-jsoup_2.12:0.15.0" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/emil-jsoup_2.12-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/scala-library-2.12.18.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/emil-common_2.12-0.15.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fs2-core_2.12-3.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/scodec-bits_2.12-1.1.37.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cats-core_2.12-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cats-kernel_2.12-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cats-effect_2.12-3.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cats-effect-kernel_2.12-3.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cats-effect-std_2.12-3.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fs2-io_2.12-3.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ip4s-core_2.12-3.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/literally_2.12-1.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsoup-1.16.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
