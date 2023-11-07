@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package notas;
 
 import java.awt.BorderLayout;
@@ -14,10 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import static notas.Propiedades.*;
 
-/**
- *
- * @author Usuario
- */
 public class BackPanel extends JPanel{
     
     public BackPanel(){

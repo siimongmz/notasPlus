@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package notas;
 
 import java.awt.Color;
@@ -19,10 +15,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-/**
- *
- * @author Usuario
- */
 public class TextInterfaz extends JEditorPane{
     
     static Font fuente = new Font(Font.SANS_SERIF,  Font.BOLD, 90);
