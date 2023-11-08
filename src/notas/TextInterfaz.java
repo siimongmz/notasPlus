@@ -50,7 +50,6 @@ public class TextInterfaz extends JEditorPane{
     
     public static void setFuenteActual(Font f){
         fuente = f;
-        
     }
     public static void getTexto(){
         System.out.println(texto);
