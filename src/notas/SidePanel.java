@@ -11,7 +11,7 @@ public class SidePanel extends JPanel{
         this.setSize(320, windowSize.height);
         this.setPreferredSize(new Dimension(320, windowSize.height));
         this.setVisible(true);
-        this.setBackground(new Color(160,160,255));
+        this.setBackground(colorFondo2);
         this.Actualizar();
     
     }

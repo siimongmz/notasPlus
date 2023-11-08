@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JEditorPane;
 import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.border.*;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -37,9 +36,9 @@ public class TextInterfaz extends JEditorPane{
     protected void paintComponent(Graphics g){
         
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setPaint(new GradientPaint(0,0,superLightBlue,0,windowSize.height,lightBlue,true));
+        g2.setPaint(new GradientPaint(0,0, colorFondo2,0,windowSize.height, colorFondo1,true));
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-        g2.setColor(new Color(0,0,0,50));
+        g2.setColor(new Color(255,255,255,90));
         g2.fill(new RoundRectangle2D.Double(paddingTexto, paddingTexto, this.getWidth()-paddingTexto*2, this.getHeight()-paddingTexto*2, 25,25));
         
         texto=this.getText();
