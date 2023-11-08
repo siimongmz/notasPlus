@@ -24,7 +24,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
     boolean dentro = false;
     int function;
     File fichero;
-    
+
     
     public ButtonPanel(int f,String text,File fichero){
         this.setSize(300, 50);
@@ -54,46 +54,55 @@ public class ButtonPanel extends JPanel implements MouseListener{
         this.addMouseListener(this);
         this.setVisible(true);
         this.function = f;
-        this.add(new JLabel("\n"+text)).setFont(new Font(Font.SANS_SERIF,  Font.ITALIC, 15));
+        this.add(new JLabel("\n"+text)).setFont(new Font(Font.SANS_SERIF,  Font.PLAIN, 15));
     
     }
     
     @Override
     protected void paintComponent(Graphics g){
         Graphics2D g2 = (Graphics2D) g.create();
-        
-        if(function==0){
-        
-            if(dentro){
-                g2.setColor(new Color(255,255,255,200));
-            }else{
-                g2.setColor(new Color(255,255,255,100));
-            }
 
-            g2.fill(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 25,25));
-
-            g2.setPaint(Color.black);
-        
-        }else{
-            if(dentro){
-                g2.setColor(new Color(100,100,100));
-            }else{
-                g2.setColor(new Color(150,150,150));
-            }
-
-            g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-            
-            
+        switch (function){
+            case 0 -> pintarBoton0(g);
+            case 1 -> pintarBoton1(g);
+            case 2 -> pintarBoton2(g);
         }
-        
-        
-        
-        
         super.paintComponent(g);
     }
     
+    protected void pintarBoton0(Graphics g){
+        Graphics2D g2 = (Graphics2D) g.create();
+        if(dentro){
+            g2.setColor(new Color(255,255,255,200));
+        }else{
+            g2.setColor(new Color(255,255,255,100));
+        }
 
+        g2.fill(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 25,25));
+
+    }
+    protected void pintarBoton1(Graphics g){
+        Graphics2D g2 = (Graphics2D) g.create();
+        if(dentro){
+            g2.setColor(new Color(100,100,100));
+        }else{
+            g2.setColor(new Color(150,150,150));
+        }
+
+        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+    }
+    protected void pintarBoton2(Graphics g){
+        Graphics2D g2 = (Graphics2D) g.create();
+        if(dentro){
+            g2.setColor(new Color(100,100,100));
+        }else{
+            g2.setColor(new Color(150,150,150));
+        }
+
+        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -175,6 +184,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
     public void mousePressed(MouseEvent e) {
         if(e.getClickCount()==2){
             String nombre = JOptionPane.showInputDialog("Que nombre quieres poner");
+            this.removeAll();
             this.add(new JLabel(nombre)).setFont(new Font(Font.SANS_SERIF,  Font.ITALIC, 40));
         }
     }

@@ -12,5 +12,7 @@ public interface Propiedades {
     static File carpetaNotas = new File("./src/notas/ArchivoNotas");
     Color lightBlue = new Color(80,80,255);
     Color superLightBlue = new Color(200,200,255);
+
+    int paddingTexto = 10;
     
 }

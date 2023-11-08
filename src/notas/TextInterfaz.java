@@ -1,19 +1,16 @@
 package notas;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.JEditorPane;
 import javax.swing.text.html.HTMLEditorKit;
-import static notas.Propiedades.lightBlue;
-import static notas.Propiedades.superLightBlue;
-import static notas.Propiedades.windowSize;
+import javax.swing.border.*;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+
+import static notas.Propiedades.*;
 
 public class TextInterfaz extends JEditorPane{
     
@@ -23,13 +20,15 @@ public class TextInterfaz extends JEditorPane{
     public TextInterfaz(){
       
         this.setOpaque(false);
-        
         this.setBackground(new Color(255,255,255));
-        
         HTMLEditorKit editorKit = new HTMLEditorKit();
         this.setEditorKit(editorKit);
+        this.setMaximumSize(new Dimension(20, Integer.MAX_VALUE));
+        this.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
+        this.putClientProperty(JEditorPane.W3C_LENGTH_UNITS, true);
+
         
-        this.setText("<head><style>body{font-size:50}</style></head>");
+        this.setText("<head><style>body{font-size:40;padding:10px;}</style></head><body></body>");
         
         
     }
@@ -41,7 +40,7 @@ public class TextInterfaz extends JEditorPane{
         g2.setPaint(new GradientPaint(0,0,superLightBlue,0,windowSize.height,lightBlue,true));
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
         g2.setColor(new Color(0,0,0,50));
-        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2.fill(new RoundRectangle2D.Double(paddingTexto, paddingTexto, this.getWidth()-paddingTexto*2, this.getHeight()-paddingTexto*2, 25,25));
         
         texto=this.getText();
         super.paintComponent(g);
