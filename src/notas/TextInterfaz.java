@@ -27,7 +27,7 @@ public class TextInterfaz extends JEditorPane{
         this.putClientProperty(JEditorPane.W3C_LENGTH_UNITS, true);
 
         
-        this.setText("<head><style>body{font-size:40;padding:10px;}</style></head><body></body>");
+        this.setText("<head><style>body{font-size:40;padding:20px;}</style></head><body></body>");
         
         
     }
