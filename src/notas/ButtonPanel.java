@@ -84,9 +84,9 @@ public class ButtonPanel extends JPanel implements MouseListener{
     protected void pintarBoton1(Graphics g){
         Graphics2D g2 = (Graphics2D) g.create();
         if(dentro){
-            g2.setColor(new Color(100,100,100));
+            g2.setColor(Propiedades.colorFondo1);
         }else{
-            g2.setColor(new Color(150,150,150));
+            g2.setColor(Propiedades.colorFondo2);
         }
 
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -95,9 +95,9 @@ public class ButtonPanel extends JPanel implements MouseListener{
     protected void pintarBoton2(Graphics g){
         Graphics2D g2 = (Graphics2D) g.create();
         if(dentro){
-            g2.setColor(new Color(100,100,100));
+            g2.setColor(Propiedades.colorFondo1);
         }else{
-            g2.setColor(new Color(150,150,150));
+            g2.setColor(Propiedades.colorFondo2);
         }
 
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
