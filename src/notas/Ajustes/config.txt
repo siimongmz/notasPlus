@@ -1,1 +1,1 @@
-morado , C:\Users\roedo\Desktop\Hola
+morado , C:\Users\roedo\IdeaProjects\notasPlus\src\notas\ArchivoNotas

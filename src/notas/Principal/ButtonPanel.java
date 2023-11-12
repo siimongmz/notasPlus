@@ -11,9 +11,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import java.util.NavigableMap;
+import javax.swing.*;
 
 import notas.Ajustes.*;
 import org.jsoup.Jsoup;
@@ -25,9 +24,12 @@ public class ButtonPanel extends JPanel implements MouseListener{
     int function;
     File fichero;
     final static int  AJUSTES = 9;
+    final static int GUARDAR = 8;
     final static int IMPRIMIR = 2;
     final static int DEFAULT = 1;
     final static int ARCHIVO = 0;
+    final static int ADD = 6;
+    final static int CERRAR = 7;
 
 
     
@@ -68,8 +70,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
 
         switch (function){
             case ARCHIVO -> pintarBoton0(g);
-            case DEFAULT,AJUSTES -> pintarBoton1(g);
-            case IMPRIMIR -> pintarBoton2(g);
+            case DEFAULT,IMPRIMIR,AJUSTES,GUARDAR,CERRAR,ADD -> pintarBoton1(g);
         }
         super.paintComponent(g);
     }
@@ -96,50 +97,63 @@ public class ButtonPanel extends JPanel implements MouseListener{
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
 
     }
-    protected void pintarBoton2(Graphics g){
-        Graphics2D g2 = (Graphics2D) g.create();
-        if(dentro){
-            g2.setColor(Propiedades.getTema().secundario);
-        }else{
-            g2.setColor(Propiedades.getTema().principal);
-        }
-
-        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         switch (function){
 
-            case ARCHIVO -> accionArchivo();
+            case ARCHIVO -> accionArchivo(e);
             case DEFAULT -> accionDefault();
             case IMPRIMIR -> accionImprimir();
             case AJUSTES -> accionAjustes();
+            case GUARDAR -> accionGuardar();
+            case CERRAR -> accionCerrar();
+            case ADD -> accionAdd();
+        }
+
+
+    }
+
+    private void accionArchivo(MouseEvent e){
+        if(BackPanel.textPanels.size()>1){
+            MenuSeleccion ms= new MenuSeleccion(this.fichero);
+            ms.show(this,e.getX(),e.getY());
+        }else{
+            this.cargarArchivo();
         }
     }
 
-    private void accionArchivo(){
+    private void cargarArchivo(){
+
         try {
+
+            SeleccionDialog sd = new SeleccionDialog(AppFrame.getInstance(),true);
             FileReader fr = new FileReader(fichero);
             int sig;
             String contenido = "";
             while((sig=fr.read())!=-1){
                 contenido += (char)sig;
             }
-            TextPanel.ti.setText(contenido);
+            if(BackPanel.textPanels.size()==1){
+                BackPanel.textPanels.get(0).ti.setText(contenido);
+            }else{
+                sd.setVisible(true);
+                BackPanel.textPanels.get(sd.getSeleccion()-1).ti.setText(contenido);
+            }
+
+            fr.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
     private void accionDefault(){
 
-        String html = TextPanel.ti.getText();
+        String html = BackPanel.textPanels.get(0).ti.getText();
         Document doc = Jsoup.parse(html);
-        int pos = TextPanel.ti.getCaretPosition();
+        int pos = BackPanel.textPanels.get(0).ti.getCaretPosition();
         int contador=0;
-        String selec=TextPanel.ti.getSelectedText();
+        String selec=BackPanel.textPanels.get(0).ti.getSelectedText();
         Element bold = new Element("b");
 
 
@@ -176,11 +190,27 @@ public class ButtonPanel extends JPanel implements MouseListener{
         }
     }
     private void accionImprimir(){
-        TextPanel.ti.limpiarHTML();
+        BackPanel.textPanels.get(0).ti.limpiarHTML();
         System.out.println();
     }
     private void accionAjustes(){
             AjustesFrame af = AjustesFrame.getInstance();
+    }
+    private void accionGuardar(){
+
+    }
+    private void accionCerrar(){
+        SeleccionDialog sd = new SeleccionDialog(AppFrame.getInstance(),true);
+        if(BackPanel.textPanels.size()>1){
+            sd.setVisible(true);
+            BackPanel.textPanels.remove(sd.seleccion-1);
+            BackPanel.actualizarContenedor();
+            AppFrame.getInstance().repaint();
+        }
+    }
+    private void accionAdd(){
+        BackPanel.textPanels.add(new TextPanel());
+        BackPanel.actualizarContenedor();
     }
 
     @Override

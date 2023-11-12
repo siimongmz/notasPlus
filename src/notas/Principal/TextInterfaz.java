@@ -2,6 +2,7 @@ package notas.Principal;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
 import javax.swing.JEditorPane;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -11,13 +12,14 @@ import org.jsoup.nodes.Element;
 
 public class TextInterfaz extends JEditorPane{
     
-    static Font fuente = new Font(Font.SANS_SERIF,  Font.BOLD, 90);
-    static String texto;
+    Font fuente = new Font(Font.SANS_SERIF,  Font.BOLD, 90);
+    String texto;
+    File ficheroActual;
     
     public TextInterfaz(){
       
         this.setOpaque(false);
-        this.setBackground(new Color(255,255,255));
+        //this.setBackground(new Color(255,255,255));
         HTMLEditorKit editorKit = new HTMLEditorKit();
         this.setEditorKit(editorKit);
         this.setMaximumSize(new Dimension(20, Integer.MAX_VALUE));
@@ -44,10 +46,10 @@ public class TextInterfaz extends JEditorPane{
         
     }
     
-    public static void setFuenteActual(Font f){
+    public void setFuenteActual(Font f){
         fuente = f;
     }
-    public static void getTexto(){
+    public void getTexto(){
         System.out.println(texto);
     }
     
