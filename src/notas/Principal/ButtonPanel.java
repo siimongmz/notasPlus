@@ -1,4 +1,4 @@
-package notas;
+package notas.Principal;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,13 +9,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import notas.Ajustes.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -24,6 +24,11 @@ public class ButtonPanel extends JPanel implements MouseListener{
     boolean dentro = false;
     int function;
     File fichero;
+    final static int  AJUSTES = 9;
+    final static int IMPRIMIR = 2;
+    final static int DEFAULT = 1;
+    final static int ARCHIVO = 0;
+
 
     
     public ButtonPanel(int f,String text,File fichero){
@@ -60,12 +65,11 @@ public class ButtonPanel extends JPanel implements MouseListener{
     
     @Override
     protected void paintComponent(Graphics g){
-        Graphics2D g2 = (Graphics2D) g.create();
 
         switch (function){
-            case 0 -> pintarBoton0(g);
-            case 1 -> pintarBoton1(g);
-            case 2 -> pintarBoton2(g);
+            case ARCHIVO -> pintarBoton0(g);
+            case DEFAULT,AJUSTES -> pintarBoton1(g);
+            case IMPRIMIR -> pintarBoton2(g);
         }
         super.paintComponent(g);
     }
@@ -84,9 +88,9 @@ public class ButtonPanel extends JPanel implements MouseListener{
     protected void pintarBoton1(Graphics g){
         Graphics2D g2 = (Graphics2D) g.create();
         if(dentro){
-            g2.setColor(Propiedades.colorFondo1);
+            g2.setColor(Propiedades.getTema().secundario);
         }else{
-            g2.setColor(Propiedades.colorFondo2);
+            g2.setColor(Propiedades.getTema().principal);
         }
 
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -95,9 +99,9 @@ public class ButtonPanel extends JPanel implements MouseListener{
     protected void pintarBoton2(Graphics g){
         Graphics2D g2 = (Graphics2D) g.create();
         if(dentro){
-            g2.setColor(Propiedades.colorFondo1);
+            g2.setColor(Propiedades.getTema().secundario);
         }else{
-            g2.setColor(Propiedades.colorFondo2);
+            g2.setColor(Propiedades.getTema().principal);
         }
 
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -106,83 +110,82 @@ public class ButtonPanel extends JPanel implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (function == 0) {
-            try {
-                //leer el archivo this.fichero y poner los datos en 
-                FileReader fr = new FileReader(fichero);
-                int sig;
-                String contenido = "";
-                
-                while((sig=fr.read())!=-1){
-                    contenido += (char)sig;
-                }
-                TextPanel.ti.setText(contenido);
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
+
+        switch (function){
+
+            case ARCHIVO -> accionArchivo();
+            case DEFAULT -> accionDefault();
+            case IMPRIMIR -> accionImprimir();
+            case AJUSTES -> accionAjustes();
         }
-        
-        if (function==1) {
-            
-            String html = TextPanel.ti.getText();
-            Document doc = Jsoup.parse(html);
-            int pos = TextPanel.ti.getCaretPosition();
-            int contador=0;
-            String selec=TextPanel.ti.getSelectedText();
-            boolean primero=false;
-            Element bold = new Element("b");
+    }
 
-            
+    private void accionArchivo(){
+        try {
+            FileReader fr = new FileReader(fichero);
+            int sig;
+            String contenido = "";
+            while((sig=fr.read())!=-1){
+                contenido += (char)sig;
+            }
+            TextPanel.ti.setText(contenido);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void accionDefault(){
 
-            for (Element element : doc.select("*")) {
+        String html = TextPanel.ti.getText();
+        Document doc = Jsoup.parse(html);
+        int pos = TextPanel.ti.getCaretPosition();
+        int contador=0;
+        String selec=TextPanel.ti.getSelectedText();
+        Element bold = new Element("b");
 
-                if (element.hasText()) {
-                    contador+=element.ownText().length();
-                    System.out.println(element.tagName());
+
+
+        for (Element element : doc.select("*")) {
+
+            if (element.hasText()) {
+                contador+=element.ownText().length();
+                System.out.println(element.tagName());
+                System.out.println(element.ownText());
+                System.out.println(contador+"-"+pos);
+
+
+                if(contador>pos){
+                    String texto=element.ownText();
                     System.out.println(element.ownText());
-                    System.out.println(contador+"-"+pos);
-                    
-                    
-                    if(contador>pos){
-                        String texto=element.ownText();
-                        System.out.println(element.ownText());
-                        element.text(texto.substring(0, (contador-pos)-selec.length()));
-                        element.appendChild(bold.text(selec));
-                        element.appendText(texto.substring((contador-pos)));
-                        
-                        
-                        
-                        
-                        System.out.println(doc.html());
-                        break;
-                    }else{
-                        if(element.tagName().equals("p") && element.ownText().length()>=1){
-                            contador+=1;
-                        }
-                        
-                    
+                    element.text(texto.substring(0, (contador-pos)-selec.length()));
+                    element.appendChild(bold.text(selec));
+                    element.appendText(texto.substring((contador-pos)));
+
+
+
+
+                    System.out.println(doc.html());
+                    break;
+                }else{
+                    if(element.tagName().equals("p") && element.ownText().length()>=1){
+                        contador+=1;
                     }
+
+
                 }
             }
-
-            TextPanel.ti.setText(doc.body().html());
-            
-            
-            
         }
-        if (function==2) {
-            
-            TextPanel.ti.limpiarHTML();
-            System.out.println();
-        }
-        
-        
-        
+    }
+    private void accionImprimir(){
+        TextPanel.ti.limpiarHTML();
+        System.out.println();
+    }
+    private void accionAjustes(){
+            AjustesFrame af = AjustesFrame.getInstance();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.getClickCount()==2){
+        if(e.getClickCount()==2 && this.function == ARCHIVO){
             String nombre = JOptionPane.showInputDialog("Que nombre quieres poner");
             this.removeAll();
             this.add(new JLabel(nombre)).setFont(new Font(Font.SANS_SERIF,  Font.ITALIC, 40));

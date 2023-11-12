@@ -1,10 +1,6 @@
-package notas;
+package notas.Principal;
 
-import scala.App;
-
-import java.awt.Graphics;
 import javax.swing.JFrame;
-import static notas.Propiedades.*;
 
 public class AppFrame extends JFrame{
     
@@ -12,7 +8,7 @@ public class AppFrame extends JFrame{
     static AppFrame af = new AppFrame();
     
     public AppFrame(){
-        this.setSize(windowSize);
+        this.setSize(Propiedades.windowSize);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(bp);
         this.setVisible(true);
@@ -20,7 +16,7 @@ public class AppFrame extends JFrame{
 
     }
 
-    public static AppFrame getAppFrame(){
+    public static AppFrame getInstance(){
         return af;
     }
     
