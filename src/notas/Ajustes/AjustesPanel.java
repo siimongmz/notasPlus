@@ -25,10 +25,14 @@ public class AjustesPanel extends JPanel implements ActionListener {
         this.add(botonCarpeta);
         //ComboBox
         eleccionTema= new JComboBox<String>();
+        eleccionTema.addItem("Oscuro");
+        eleccionTema.addItem("Claro");
         eleccionTema.addItem("Azul");
         eleccionTema.addItem("Rojo");
         eleccionTema.addItem("Verde");
         eleccionTema.addItem("Morado");
+        eleccionTema.addItem("Amarillo");
+        eleccionTema.setSelectedItem(Propiedades.getTema().nombre);
 
         eleccionTema.setBounds(220,20,250,40);
         this.add(eleccionTema);

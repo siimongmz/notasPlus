@@ -1,1 +1,1 @@
-morado , C:\Users\roedo\IdeaProjects\notasPlus\src\notas\ArchivoNotas
+Azul , /home/alumnotd/IdeaProjects/notasPlus/src/notas/ArchivoNotas

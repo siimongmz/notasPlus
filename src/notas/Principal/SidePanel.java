@@ -17,6 +17,13 @@ public class SidePanel extends JPanel{
         this.setOpaque(false);
 
         this.add(panelBotones);
+        ButtonPanel botonAjustes = new ButtonPanel(ButtonPanel.AJUSTES,30,30,"");
+        ButtonPanel botonAdd = new ButtonPanel(ButtonPanel.ADD,30,30,"");
+        this.add(botonAjustes);
+        this.add(botonAdd);
+        botonAjustes.setBounds(10,10,25,25);
+        botonAdd.setBounds(this.getSize().width-35,10,25,25);
+
         panelBotones.setBounds(0,separacionVertical,320,this.getHeight()-separacionVertical);
         panelBotones.setVisible(true);
         panelBotones.setSize(320, this.getHeight()-separacionVertical);
@@ -27,7 +34,7 @@ public class SidePanel extends JPanel{
 
 
         this.setLayout(null);
-        this.Actualizar();
+        Actualizar();
         this.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
