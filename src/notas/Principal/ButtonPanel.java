@@ -11,7 +11,6 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.NavigableMap;
 import javax.swing.*;
 
 import notas.Ajustes.*;
@@ -42,7 +41,6 @@ public class ButtonPanel extends JPanel implements MouseListener{
         this.function = f;
         this.add(new JLabel(text)).setFont(new Font(Font.SANS_SERIF,  Font.ITALIC, 40));
         this.fichero = fichero;
-    
     }
     
     public ButtonPanel(int f,int width,int height){
@@ -69,13 +67,14 @@ public class ButtonPanel extends JPanel implements MouseListener{
     protected void paintComponent(Graphics g){
 
         switch (function){
-            case ARCHIVO -> pintarBoton0(g);
-            case DEFAULT,IMPRIMIR,AJUSTES,GUARDAR,CERRAR,ADD -> pintarBoton1(g);
+            case ARCHIVO -> pintarBotonArchivo(g);
+            case DEFAULT,IMPRIMIR,GUARDAR,CERRAR -> pintarBotonHerramientas(g);
+            case AJUSTES,ADD -> pintarBotonMenu(g);
         }
-        super.paintComponent(g);
+
     }
     
-    protected void pintarBoton0(Graphics g){
+    protected void pintarBotonArchivo(Graphics g){
         Graphics2D g2 = (Graphics2D) g.create();
         if(dentro){
             g2.setColor(new Color(255,255,255,200));
@@ -84,9 +83,30 @@ public class ButtonPanel extends JPanel implements MouseListener{
         }
 
         g2.fill(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 25,25));
-
+        super.paintComponent(g);
     }
-    protected void pintarBoton1(Graphics g){
+    protected void pintarBotonMenu(Graphics g){
+
+        switch (this.function){
+            case ADD ->{
+                if (dentro) {
+                    this.setBounds(290,10,30,30);
+                }else{
+                    this.setBounds(290,10,25,25);
+                }
+                g.drawImage(Propiedades.logoAdd.getImage(), 0, 0, this.getSize().width, this.getSize().height, this);
+            }
+            case AJUSTES ->{
+                if (dentro) {
+                    this.setBounds(10,10,30,30);
+                }else{
+                    this.setBounds(10,10,25,25);
+                }
+                g.drawImage(Propiedades.logoAjustes.getImage(),0,0,this.getSize().width,this.getSize().height,this);
+            }
+        }
+    }
+    protected void pintarBotonHerramientas(Graphics g){
         Graphics2D g2 = (Graphics2D) g.create();
         if(dentro){
             g2.setColor(Propiedades.getTema().secundario);
@@ -95,7 +115,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
         }
 
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-
+        super.paintComponent(g);
     }
 
     @Override
@@ -211,6 +231,9 @@ public class ButtonPanel extends JPanel implements MouseListener{
     private void accionAdd(){
         BackPanel.textPanels.add(new TextPanel());
         BackPanel.actualizarContenedor();
+        for (TextPanel t : BackPanel.textPanels){
+            t.repaint();
+        }
     }
 
     @Override

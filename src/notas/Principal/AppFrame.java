@@ -15,6 +15,7 @@ public class AppFrame extends JFrame{
         this.add(bp);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        this.setTitle("Notas+");
 
 
     }

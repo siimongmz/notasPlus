@@ -11,7 +11,7 @@ public class AjustesFrame extends JFrame {
 
         //Look and feel
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException |
                  IllegalAccessException e) {
             throw new RuntimeException(e);
@@ -23,6 +23,7 @@ public class AjustesFrame extends JFrame {
         this.setVisible(true);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setTitle("Ajustes");
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
