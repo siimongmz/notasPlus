@@ -1,10 +1,6 @@
 package notas.Principal;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
@@ -22,6 +18,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
     boolean dentro = false;
     int function;
     File fichero;
+    String textoBoton;
     final static int  AJUSTES = 9;
     final static int GUARDAR = 8;
     final static int IMPRIMIR = 2;
@@ -39,7 +36,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
         this.addMouseListener(this);
         this.setVisible(true);
         this.function = f;
-        this.add(new JLabel(text)).setFont(new Font(Font.SANS_SERIF,  Font.ITALIC, 40));
+        this.textoBoton = text;
         this.fichero = fichero;
     }
     
@@ -50,6 +47,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
         this.addMouseListener(this);
         this.setVisible(true);
         this.function = f;
+        this.textoBoton = "";
     
     }
     public ButtonPanel(int f,int width,int height,String text){
@@ -59,7 +57,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
         this.addMouseListener(this);
         this.setVisible(true);
         this.function = f;
-        this.add(new JLabel("\n"+text)).setFont(new Font(Font.SANS_SERIF,  Font.PLAIN, 15));
+        this.textoBoton = text;
     
     }
     
@@ -68,8 +66,8 @@ public class ButtonPanel extends JPanel implements MouseListener{
 
         switch (function){
             case ARCHIVO -> pintarBotonArchivo(g);
-            case DEFAULT,IMPRIMIR,GUARDAR,CERRAR -> pintarBotonHerramientas(g);
-            case AJUSTES,ADD -> pintarBotonMenu(g);
+            case DEFAULT,IMPRIMIR,GUARDAR -> pintarBotonHerramientas(g);
+            case AJUSTES,ADD,CERRAR -> pintarBotonMenu(g);
         }
 
     }
@@ -83,7 +81,13 @@ public class ButtonPanel extends JPanel implements MouseListener{
         }
 
         g2.fill(new RoundRectangle2D.Double(0, 0, this.getWidth(), this.getHeight(), 25,25));
-        super.paintComponent(g);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setFont(Propiedades.lexendRegular.deriveFont(30f));
+        FontMetrics fm = g2.getFontMetrics();
+        g2.setColor(new Color(66, 66, 66));
+        g2.drawString(this.textoBoton, getWidth()/2-fm.stringWidth(this.textoBoton)/2, fm.getHeight());
+
     }
     protected void pintarBotonMenu(Graphics g){
 
@@ -104,6 +108,17 @@ public class ButtonPanel extends JPanel implements MouseListener{
                 }
                 g.drawImage(Propiedades.logoAjustes.getImage(),0,0,this.getSize().width,this.getSize().height,this);
             }
+            case CERRAR -> {
+                if (dentro) {
+                    g.setColor(new Color(192, 0, 0));
+
+                }else{
+                    g.setColor(new Color(255, 255, 255));
+                }
+                g.setFont(Propiedades.lexendRegular);
+                FontMetrics fm = g.getFontMetrics();
+                g.drawString(this.textoBoton, getWidth()/2-fm.stringWidth(this.textoBoton)/2, fm.getHeight());
+            }
         }
     }
     protected void pintarBotonHerramientas(Graphics g){
@@ -115,7 +130,12 @@ public class ButtonPanel extends JPanel implements MouseListener{
         }
 
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
-        super.paintComponent(g);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setFont(Propiedades.lexendRegular);
+        FontMetrics fm = g2.getFontMetrics();
+        g2.setColor(new Color(255, 255, 255));
+        g2.drawString(this.textoBoton, getWidth()/2-fm.stringWidth(this.textoBoton)/2, fm.getHeight());
     }
 
     @Override
@@ -229,10 +249,12 @@ public class ButtonPanel extends JPanel implements MouseListener{
         }
     }
     private void accionAdd(){
-        BackPanel.textPanels.add(new TextPanel());
-        BackPanel.actualizarContenedor();
-        for (TextPanel t : BackPanel.textPanels){
-            t.repaint();
+        if(BackPanel.textPanels.size()<=3) {
+            BackPanel.textPanels.add(new TextPanel());
+            BackPanel.actualizarContenedor();
+            for (TextPanel t : BackPanel.textPanels) {
+                t.repaint();
+            }
         }
     }
 
