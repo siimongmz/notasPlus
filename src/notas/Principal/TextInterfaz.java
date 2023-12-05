@@ -15,21 +15,21 @@ public class TextInterfaz extends JEditorPane{
     Font fuente = new Font(Font.SANS_SERIF,  Font.BOLD, 90);
     String texto;
     File ficheroActual;
+    ButtonPanel botonCerrar;
     
     public TextInterfaz(){
       
         this.setOpaque(false);
-        //this.setBackground(new Color(255,255,255));
         HTMLEditorKit editorKit = new HTMLEditorKit();
         this.setEditorKit(editorKit);
-        this.setMaximumSize(new Dimension(20, Integer.MAX_VALUE));
         this.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
         this.putClientProperty(JEditorPane.W3C_LENGTH_UNITS, true);
-
-        
+        botonCerrar = new ButtonPanel(ButtonPanel.CERRAR,30,30,"X");
+        this.add(botonCerrar);
+        this.setVisible(true);
         this.setText("<head><style>body{font-size:40;padding:20px;}</style></head><body></body>");
-        
-        
+
+
     }
     
     @Override
@@ -43,6 +43,8 @@ public class TextInterfaz extends JEditorPane{
         
         texto=this.getText();
         super.paintComponent(g);
+        botonCerrar.setBounds(this.getWidth()-40,10,30,30);
+        this.revalidate();
         
     }
     

@@ -48,16 +48,28 @@ public class BackPanel extends JPanel{
         }
 
         for (int i = 0; i< textPanels.size(); i++){
-            if (i<2){
-                gbc.gridx=i;
-                gbc.gridy=0;
-                gbc.gridheight=1;
-                gbc.gridwidth=1;
-            }else{
-                gbc.gridx=i-2;
-                gbc.gridy=1;
-                gbc.gridwidth=2;
+            switch (i){
+                case 0,1 ->{
+                    gbc.gridx=i;
+                    gbc.gridy=0;
+                    gbc.gridheight=1;
+                    gbc.gridwidth=1;
+                }
+                case 2->{
+                    gbc.gridx=0;
+                    gbc.gridy=1;
+                    gbc.gridwidth=2;
+                }
+                case 3->{
+                    gbc.gridx=0;
+                    gbc.gridy=1;
+                    gbc.gridwidth=1;
+                    contenedor.remove(2);
+                    contenedor.add(textPanels.get(i-1),gbc);
+                    gbc.gridx=1;
+                }
             }
+
 
             contenedor.add(textPanels.get(i),gbc);
         }

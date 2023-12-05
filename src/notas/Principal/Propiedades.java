@@ -3,8 +3,7 @@ package notas.Principal;
 import notas.Ajustes.Tema;
 
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.*;
 
 public abstract class Propiedades {
@@ -30,6 +29,7 @@ public abstract class Propiedades {
     static public ImageIcon logoAjustes = ajustesLogoClaro;
     static public ImageIcon logoAdd = addLogoClaro;
 
+
     //Temas
     static final Tema temaVerde = new Tema("Verde",new Color(32, 79, 21),new Color(109, 192, 52));
     static final Tema temaAzul = new Tema("Azul",new Color(21, 40, 79),new Color(47, 88, 173));
@@ -40,6 +40,11 @@ public abstract class Propiedades {
     static final Tema temaClaro = new Tema("Claro",new Color(110, 110, 110),new Color(227, 227, 227));
 
     static private Tema temaActual = temaAzul;
+
+    //Fuentes
+
+    public static Font lexendRegular = crearFuente("Regular");
+    public static Font lexendExtraBold = crearFuente("ExtraBold");
 
     //padding
     static int paddingTexto = 10;
@@ -81,13 +86,13 @@ public abstract class Propiedades {
             case "oscuro" -> {
                 temaActual = temaOscuro;
                 logo = logoClaro;
-                logoAjustes = ajustesLogoOscuro;
-                logoAdd =addLogoOscuro;}
+                logoAjustes = ajustesLogoClaro;
+                logoAdd =addLogoClaro;}
             case "claro" -> {
                 temaActual = temaClaro;
                 logo = logoOscuro;
-                logoAjustes = ajustesLogoClaro;
-                logoAdd =addLogoClaro;}
+                logoAjustes = ajustesLogoOscuro;
+                logoAdd =addLogoOscuro;}
 
 
         }
@@ -144,6 +149,17 @@ public abstract class Propiedades {
         }  catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static Font crearFuente(String tipo){
+        Font fuente;
+        try {
+            fuente = Font.createFont(Font.TRUETYPE_FONT,new File("./src/resources/fonts/Lexend-"+tipo+".ttf"));
+            fuente = fuente.deriveFont(Font.PLAIN,14f);
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return fuente;
     }
     
 }

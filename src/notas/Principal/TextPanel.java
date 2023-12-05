@@ -18,10 +18,4 @@ public class TextPanel extends JPanel{
         this.add(ti,BorderLayout.CENTER);
         
     }
-    
-    
-    
-    
-   
-    
 }

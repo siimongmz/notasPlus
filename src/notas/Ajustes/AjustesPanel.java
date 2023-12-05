@@ -18,13 +18,16 @@ public class AjustesPanel extends JPanel implements ActionListener {
     protected AjustesPanel(){
         this.setSize(500,500);
         this.setLayout(null);
+        this.setFont(Propiedades.lexendRegular);
         //Carpeta Guardado
         botonCarpeta = new JButton("Elegir Carpeta");
+        botonCarpeta.setFont(Propiedades.lexendRegular);
         botonCarpeta.setBounds(220,80,250,40);
         botonCarpeta.addActionListener(this);
         this.add(botonCarpeta);
         //ComboBox
         eleccionTema= new JComboBox<String>();
+        eleccionTema.setFont(Propiedades.lexendRegular);
         eleccionTema.addItem("Oscuro");
         eleccionTema.addItem("Claro");
         eleccionTema.addItem("Azul");
@@ -38,6 +41,7 @@ public class AjustesPanel extends JPanel implements ActionListener {
         this.add(eleccionTema);
         //Boton Guardado
         guardar = new JButton("Guardar");
+        guardar.setFont(Propiedades.lexendRegular);
         guardar.addActionListener(this);
         guardar.setBounds(370,420,100,30);
         this.add(guardar);
