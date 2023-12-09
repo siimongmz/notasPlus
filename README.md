@@ -4,6 +4,7 @@ Notas plus es un programa en proceso de desarrollo el cual busca traer las funci
 ****
 ## Objetivos
 Los objetivos de la aplicación son
+- Ofrecer una alternativa sencilla visual e intuitiva a aquellos usuarios de Windows y Linux que desean tomar apuntes sin la excesiva simpleza de Notepad ni la excesiva complejidad de editores de texto enriquecido como Word
 - Extender el uso del archivo MarkDown (```.md```) para tomar apuntes, crear documentaciones y visualizar texto con formato
 - Facilitar la edicion de los archivos ```.md```
 - Facilitar la conversion de los archivos ```.md``` a ```.html```
