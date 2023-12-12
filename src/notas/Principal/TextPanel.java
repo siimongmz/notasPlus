@@ -2,7 +2,7 @@ package notas.Principal;
 
 
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -11,6 +11,7 @@ public class TextPanel extends JPanel{
     
     TextPanel(){
         BorderLayout bl = new BorderLayout();
+        this.setBackground(new Color(0,0,0,0));
         this.setLayout(bl);
         this.setVisible(true);
         ti = new TextInterfaz();

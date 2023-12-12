@@ -16,8 +16,8 @@ public class BackPanel extends JPanel{
         this.setLayout(new BorderLayout());
         this.add(new SidePanel(),BorderLayout.WEST);
         gl.setColumns(textPanels.size());
-        contenedor.setBackground(Color.ORANGE);
         contenedor.setLayout(layout);
+        contenedor.setBackground(new Color(0,0,0,0));
         gbc.weightx=1;
         gbc.weighty=1;
         gbc.fill = GridBagConstraints.BOTH;

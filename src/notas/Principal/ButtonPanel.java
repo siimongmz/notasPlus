@@ -94,7 +94,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
         switch (this.function){
             case ADD ->{
                 if (dentro) {
-                    this.setBounds(290,10,30,30);
+                    this.setBounds(285,5,35,35);
                 }else{
                     this.setBounds(290,10,25,25);
                 }
@@ -102,7 +102,7 @@ public class ButtonPanel extends JPanel implements MouseListener{
             }
             case AJUSTES ->{
                 if (dentro) {
-                    this.setBounds(10,10,30,30);
+                    this.setBounds(5,5,35,35);
                 }else{
                     this.setBounds(10,10,25,25);
                 }
@@ -159,34 +159,21 @@ public class ButtonPanel extends JPanel implements MouseListener{
             MenuSeleccion ms= new MenuSeleccion(this.fichero);
             ms.show(this,e.getX(),e.getY());
         }else{
-            this.cargarArchivo();
+            try {
+                FileReader fr = new FileReader(fichero);
+                int sig;
+                String contenido = "";
+                while((sig=fr.read())!=-1){
+                    contenido += (char)sig;
+                }
+                    BackPanel.textPanels.get(0).ti.setText(contenido);
+
+                fr.close();
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
-
-    private void cargarArchivo(){
-
-        try {
-
-            SeleccionDialog sd = new SeleccionDialog(AppFrame.getInstance(),true);
-            FileReader fr = new FileReader(fichero);
-            int sig;
-            String contenido = "";
-            while((sig=fr.read())!=-1){
-                contenido += (char)sig;
-            }
-            if(BackPanel.textPanels.size()==1){
-                BackPanel.textPanels.get(0).ti.setText(contenido);
-            }else{
-                sd.setVisible(true);
-                BackPanel.textPanels.get(sd.getSeleccion()-1).ti.setText(contenido);
-            }
-
-            fr.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     private void accionDefault(){
 
         String html = BackPanel.textPanels.get(0).ti.getText();
@@ -240,10 +227,9 @@ public class ButtonPanel extends JPanel implements MouseListener{
 
     }
     private void accionCerrar(){
-        SeleccionDialog sd = new SeleccionDialog(AppFrame.getInstance(),true);
         if(BackPanel.textPanels.size()>1){
-            sd.setVisible(true);
-            BackPanel.textPanels.remove(sd.seleccion-1);
+
+            BackPanel.textPanels.remove(this.getParent().getParent());
             BackPanel.actualizarContenedor();
             AppFrame.getInstance().repaint();
         }

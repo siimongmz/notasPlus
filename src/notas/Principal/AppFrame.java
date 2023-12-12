@@ -24,7 +24,4 @@ public class AppFrame extends JFrame{
         return af;
     }
     
-    
-    
-    
 }

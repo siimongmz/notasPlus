@@ -34,13 +34,14 @@ public class TextInterfaz extends JEditorPane{
     
     @Override
     protected void paintComponent(Graphics g){
-        
+        g.clearRect(0,0,this.getWidth(),this.getHeight());
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.setPaint(new GradientPaint(0,0, Propiedades.getTema().principal,0,Propiedades.windowSize.height, Propiedades.getTema().secundario,true));
+        g2.setPaint(new GradientPaint(this.getWidth()/2,this.getHeight()/2, Propiedades.getTema().principal,this.getWidth()/2,this.getHeight(), Propiedades.getTema().secundario,false));
+
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
         g2.setColor(new Color(255,255,255,90));
         g2.fill(new RoundRectangle2D.Double(Propiedades.paddingTexto, Propiedades.paddingTexto, this.getWidth()-Propiedades.paddingTexto*2, this.getHeight()-Propiedades.paddingTexto*2, 25,25));
-        
+
         texto=this.getText();
         super.paintComponent(g);
         botonCerrar.setBounds(this.getWidth()-40,10,30,30);
